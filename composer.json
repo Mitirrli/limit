@@ -1,0 +1,19 @@
+{
+  "name": "mitirrli/limit",
+  "description": "限制接口请求次数",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "mitirrli",
+      "email": "512663808@qq.com"
+    }
+  ],
+  "require": {
+    "predis/predis": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mitirrli\\Limit\\": "./src/"
+    }
+  }
+}

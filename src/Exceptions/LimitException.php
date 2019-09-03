@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Mitirrli\YunPian\Exceptions;
+namespace Mitirrli\Limit\Exceptions;
 
 class LimitException extends \Exception
 {

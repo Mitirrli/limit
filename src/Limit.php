@@ -15,43 +15,48 @@ use Predis\Client;
 
 /**
  * 限制接口调用次数
- * Class Limit
- * @package Mitirrli\Limit
+ * Class Limit.
  */
 class Limit
 {
     /**
-     * redis配置项
+     * redis配置项.
+     *
      * @var array
      */
     protected $redisOptions = [];
 
     /**
      * 设置每多少秒为一个临界值
+     *
      * @var int
      */
     protected $second;
 
     /**
-     * 多少秒可以调用接口的次数
+     * 多少秒可以调用接口的次数.
+     *
      * @var int
      */
     protected $num;
 
     /**
-     * Redis实例
+     * Redis实例.
+     *
      * @var Client
      */
     protected $redis;
 
     /**
-     * Redis键名
+     * Redis键名.
+     *
      * @var string
      */
     protected $keyName = '';
 
     /**
      * Limit constructor.
+     *
      * @param int $second
      * @param int $num
      */
@@ -61,11 +66,12 @@ class Limit
 
         $this->second = $second;
         $this->num = $num;
-        $this->keyName = 'Mi_Limit_' . $this->second . '_' . $_SERVER['REMOTE_ADDR'];
+        $this->keyName = 'Mi_Limit_'.$this->second.'_'.$_SERVER['REMOTE_ADDR'];
     }
 
     /**
-     * 实例化
+     * 实例化.
+     *
      * @return Client
      */
     public function getRedisClient()
@@ -74,7 +80,8 @@ class Limit
     }
 
     /**
-     * 设置参数
+     * 设置参数.
+     *
      * @param array $options
      */
     public function setRedisOptions(array $options)
@@ -83,7 +90,8 @@ class Limit
     }
 
     /**
-     * 判断是否可以调用
+     * 判断是否可以调用.
+     *
      * @return bool
      */
     public function run()
@@ -94,7 +102,8 @@ class Limit
     }
 
     /**
-     * 获取key
+     * 获取key.
+     *
      * @return bool|string
      */
     public function get()
@@ -107,8 +116,10 @@ class Limit
     }
 
     /**
-     * 设置key
+     * 设置key.
+     *
      * @param $result
+     *
      * @return bool
      */
     public function set($result)
@@ -122,6 +133,7 @@ class Limit
         } else {
             $this->redis->incr($this->keyName);
         }
+
         return true;
     }
 }

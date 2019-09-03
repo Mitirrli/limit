@@ -12,7 +12,6 @@
 namespace Mitirrli\Limit;
 
 use Predis\Client;
-use Mitirrli\YunPian\Exceptions\LimitException;
 
 /**
  * 限制接口调用次数
@@ -23,35 +22,30 @@ class Limit
 {
     /**
      * redis配置项
-     *
      * @var array
      */
     protected $redisOptions = [];
 
     /**
      * 设置每多少秒为一个临界值
-     *
      * @var int
      */
     protected $second;
 
     /**
      * 多少秒可以调用接口的次数
-     *
      * @var int
      */
     protected $num;
 
     /**
      * Redis实例
-     *
      * @var Client
      */
     protected $redis;
 
     /**
      * Redis键名
-     *
      * @var string
      */
     protected $keyName = '';
@@ -71,6 +65,7 @@ class Limit
     }
 
     /**
+     * 实例化
      * @return Client
      */
     public function getRedisClient()
@@ -79,6 +74,7 @@ class Limit
     }
 
     /**
+     * 设置参数
      * @param array $options
      */
     public function setRedisOptions(array $options)
@@ -88,16 +84,17 @@ class Limit
 
     /**
      * 判断是否可以调用
-     * @throws LimitException
+     * @return bool
      */
     public function run()
     {
         $result = $this->get();
 
-        $this->set($result);
+        return ($this->set($result) === false) ? false : true;
     }
 
     /**
+     * 获取key
      * @return bool|string
      */
     public function get()
@@ -110,18 +107,21 @@ class Limit
     }
 
     /**
+     * 设置key
      * @param $result
-     * @throws LimitException
+     * @return bool
      */
     public function set($result)
     {
         if ($result !== false && $result >= $this->num) {
-            throw new LimitException('当前调用接口次数过多,请稍候再试', 1004);
+            return false;
         }
+
         if ($result === false) {
             $this->redis->setex($this->keyName, $this->second, 1);
         } else {
             $this->redis->incr($this->keyName);
         }
+        return true;
     }
 }

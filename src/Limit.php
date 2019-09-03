@@ -12,6 +12,7 @@
 namespace Mitirrli\Limit;
 
 use Predis\Client;
+use Mitirrli\YunPian\Exceptions\LimitException;
 
 /**
  * 限制接口调用次数
@@ -64,9 +65,9 @@ class Limit
     {
         $this->redis = new Client($this->redisOptions);
 
-        $this->time = $second;
+        $this->second = $second;
         $this->num = $num;
-        $this->keyName = 'Mi_Limit_' . $this->time . $_SERVER['REMOTE_ADDR'];
+        $this->keyName = 'Mi_Limit_' . $this->second . '_' . $_SERVER['REMOTE_ADDR'];
     }
 
     /**
@@ -86,13 +87,14 @@ class Limit
     }
 
     /**
-     * 写入并判断是否可以调用
+     * 判断是否可以调用
+     * @throws LimitException
      */
     public function run()
     {
         $result = $this->get();
 
-        return ($this->set($result) === false) ? false : true;
+        $this->set($result);
     }
 
     /**
@@ -109,18 +111,17 @@ class Limit
 
     /**
      * @param $result
-     * @return bool
+     * @throws LimitException
      */
     public function set($result)
     {
         if ($result !== false && $result >= $this->num) {
-            return false;
+            throw new LimitException('当前调用接口次数过多,请稍候再试', 1004);
         }
         if ($result === false) {
-            $this->redis->set($this->keyName, 1, 'EX', $this->second);
+            $this->redis->setex($this->keyName, $this->second, 1);
         } else {
             $this->redis->incr($this->keyName);
         }
-        return true;
     }
 }

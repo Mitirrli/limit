@@ -30,7 +30,7 @@ class Limit
      * Limit constructor.
      * @param array $attributes
      */
-    public function __construct(array $attributes)
+    public function __construct(array $attributes = [])
     {
         $this->options = $attributes;
     }

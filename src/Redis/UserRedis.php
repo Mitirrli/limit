@@ -16,12 +16,12 @@ use Predis\Client;
 class UserRedis implements \RedisInterface
 {
     /**
-     * Redis Key Name
+     * Redis Key Name.
      */
     const KEY_NAME = 'mi_Limit_%s_%s';
 
     /**
-     * redis Option
+     * redis Option.
      *
      * @var
      */
@@ -60,7 +60,7 @@ class UserRedis implements \RedisInterface
     }
 
     /**
-     * Get Redis Instance
+     * Get Redis Instance.
      *
      * @return mixed|void
      */
@@ -70,7 +70,7 @@ class UserRedis implements \RedisInterface
     }
 
     /**
-     * Get Key
+     * Get Key.
      *
      * @return bool|mixed|string
      */
@@ -80,9 +80,10 @@ class UserRedis implements \RedisInterface
     }
 
     /**
-     * Set Key
+     * Set Key.
      *
      * @param $result
+     *
      * @return bool|mixed
      */
     public function setKey($result)
@@ -101,7 +102,7 @@ class UserRedis implements \RedisInterface
     }
 
     /**
-     * Run
+     * Run.
      *
      * @return bool|mixed
      */
@@ -110,11 +111,12 @@ class UserRedis implements \RedisInterface
         $this->getRedisClient();
 
         $result = $this->getKey();
+
         return $this->setKey($result);
     }
 
     /**
-     * Return Key Name
+     * Return Key Name.
      *
      * @return string
      */

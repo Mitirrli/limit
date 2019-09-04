@@ -22,5 +22,5 @@ $ composer require "mitirrli/limit"
 
 ```
 $limit = new Limit();//限制接口请求次数
-if (!$limit->run()) $this->ajaxReturn('1005', '当前接口请求次数已达上限，请稍后重试');
+if (!$limit->run()) return['1005', '当前接口请求次数已达上限，请稍后重试'];
 ```

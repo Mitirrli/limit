@@ -21,6 +21,17 @@ $ composer require "mitirrli/limit"
 ## 使用
 
 ```
-$limit = new Limit();//限制接口请求次数
+$config = [
+            'redis' => [
+
+            ],
+//            'limit' => [
+//                'second' => 60,
+//                'num' => 50,
+            ],
+        ];
+        
+$limit = new Limit($config);//限制接口请求次数
+
 if (!$limit->run()) return['1005', '当前接口请求次数已达上限，请稍后重试'];
 ```

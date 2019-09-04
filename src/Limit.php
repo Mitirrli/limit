@@ -11,7 +11,7 @@
 
 namespace Mitirrli\Limit;
 
-use Predis\Client;
+use Mitirrli\Limit\Redis\UserRedis;
 
 /**
  * 限制接口调用次数
@@ -20,73 +20,19 @@ use Predis\Client;
 class Limit
 {
     /**
-     * redis配置项.
+     * 配置项.
      *
      * @var array
      */
-    protected $redisOptions = [];
-
-    /**
-     * 设置每多少秒为一个临界值
-     *
-     * @var int
-     */
-    protected $second;
-
-    /**
-     * 多少秒可以调用接口的次数.
-     *
-     * @var int
-     */
-    protected $num;
-
-    /**
-     * Redis实例.
-     *
-     * @var Client
-     */
-    protected $redis;
-
-    /**
-     * Redis键名.
-     *
-     * @var string
-     */
-    protected $keyName = '';
+    protected $options = [];
 
     /**
      * Limit constructor.
-     *
-     * @param int $second
-     * @param int $num
+     * @param array $attributes
      */
-    public function __construct($second = 60, $num = 100)
+    public function __construct(array $attributes)
     {
-        $this->redis = new Client($this->redisOptions);
-
-        $this->second = $second;
-        $this->num = $num;
-        $this->keyName = 'Mi_Limit_'.$this->second.'_'.$_SERVER['REMOTE_ADDR'];
-    }
-
-    /**
-     * 实例化.
-     *
-     * @return Client
-     */
-    public function getRedisClient()
-    {
-        return $this->redis;
-    }
-
-    /**
-     * 设置参数.
-     *
-     * @param array $options
-     */
-    public function setRedisOptions(array $options)
-    {
-        $this->redisOptions = $options;
+        $this->options = $attributes;
     }
 
     /**
@@ -96,44 +42,8 @@ class Limit
      */
     public function run()
     {
-        $result = $this->get();
+        $redis = new UserRedis($this->options);
 
-        return ($this->set($result) === false) ? false : true;
-    }
-
-    /**
-     * 获取key.
-     *
-     * @return bool|string
-     */
-    public function get()
-    {
-        if ($this->redis->exists($this->keyName)) {
-            return $this->redis->get($this->keyName);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 设置key.
-     *
-     * @param $result
-     *
-     * @return bool
-     */
-    public function set($result)
-    {
-        if ($result !== false && $result >= $this->num) {
-            return false;
-        }
-
-        if ($result === false) {
-            $this->redis->setex($this->keyName, $this->second, 1);
-        } else {
-            $this->redis->incr($this->keyName);
-        }
-
-        return true;
+        return ($redis->run() || false);
     }
 }

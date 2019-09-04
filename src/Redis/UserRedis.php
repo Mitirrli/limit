@@ -11,8 +11,8 @@
 
 namespace Mitirrli\Limit\Redis;
 
-use Predis\Client;
 use Mitirrli\Limit\Contracts\RedisInterface;
+use Predis\Client;
 
 class UserRedis implements RedisInterface
 {

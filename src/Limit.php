@@ -20,7 +20,7 @@ use Mitirrli\Limit\Redis\UserRedis;
 class Limit
 {
     /**
-     * 配置项.
+     * options.
      *
      * @var array
      */

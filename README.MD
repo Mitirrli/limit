@@ -22,12 +22,10 @@ $ composer require "mitirrli/limit"
 
 ```
 $config = [
+//  'second'=>60,
+//  'num'=>50,
 //  'redis' => [
 //
-//   ],
-//   'limit' => [
-//        'second' => 60,
-//        'num' => 50,
 //   ],
 ];
         

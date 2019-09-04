@@ -12,8 +12,9 @@
 namespace Mitirrli\Limit\Redis;
 
 use Predis\Client;
+use Mitirrli\Limit\Contracts\RedisInterface;
 
-class UserRedis implements \RedisInterface
+class UserRedis implements RedisInterface
 {
     /**
      * Redis Key Name.
@@ -52,10 +53,6 @@ class UserRedis implements \RedisInterface
     {
         foreach ($attributes as $property => $value) {
             $this->$property = $value;
-        }
-        if (!empty($attributes['limit'])) {
-            $this->second = $attributes['limit']['second'];
-            $this->num = $attributes['limit']['num'];
         }
     }
 

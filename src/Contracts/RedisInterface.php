@@ -1,5 +1,7 @@
 <?php
 
+namespace Mitirrli\Limit\Contracts;
+
 /*
  * This file is part of the mitirrli/RedisInterface.php
  *
@@ -17,7 +19,7 @@ interface RedisInterface
      * @return mixed
      */
     public function getRedisClient();
-    
+
     /**
      * Get Key
      *

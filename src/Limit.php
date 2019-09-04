@@ -28,6 +28,7 @@ class Limit
 
     /**
      * Limit constructor.
+     *
      * @param array $attributes
      */
     public function __construct(array $attributes = [])
@@ -44,6 +45,6 @@ class Limit
     {
         $redis = new UserRedis($this->options);
 
-        return ($redis->run() || false);
+        return $redis->run() || false;
     }
 }

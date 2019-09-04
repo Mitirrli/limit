@@ -28,7 +28,7 @@ $config = [
 //            'limit' => [
 //                'second' => 60,
 //                'num' => 50,
-            ],
+//            ],
         ];
         
 $limit = new Limit($config);//限制接口请求次数

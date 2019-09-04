@@ -52,7 +52,9 @@ class UserRedis implements RedisInterface
     public function __construct(array $attributes)
     {
         foreach ($attributes as $property => $value) {
-            $this->$property = $value;
+            if (property_exists($this, $property)) {
+                $this->$property = $value;
+            }
         }
     }
 

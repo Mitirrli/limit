@@ -26,7 +26,7 @@ class UserRedis implements RedisInterface
      *
      * @var
      */
-    private $redis;
+    private $redis = [];
 
     /**
      * @var
@@ -56,6 +56,8 @@ class UserRedis implements RedisInterface
                 $this->$property = $value;
             }
         }
+
+        $this->getRedisClient();
     }
 
     /**
@@ -107,8 +109,6 @@ class UserRedis implements RedisInterface
      */
     public function run()
     {
-        $this->getRedisClient();
-
         $result = $this->getKey();
 
         return $this->setKey($result);

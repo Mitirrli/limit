@@ -22,11 +22,11 @@ $ composer require "mitirrli/limit"
 
 ```
 $config = [
-//  'second'=>60,
-//  'num'=>50,
-//  'redis' => [
-//
-//   ],
+    'second' => 60,//多少秒
+    'num' => 50,//接口请求次数
+    'redis' => [//redis配置
+
+    ],
 ];
         
 $limit = new Limit($config);//限制接口请求次数

@@ -29,21 +29,21 @@ class UserRedis implements RedisInterface
     private $redis = [];
 
     /**
-     * Seconds
+     * Seconds.
      *
      * @var
      */
     private $second = 60;
 
     /**
-     * Number of calls
+     * Number of calls.
      *
      * @var
      */
     private $num = 50;
 
     /**
-     * Redis Instance
+     * Redis Instance.
      *
      * @var Client
      */

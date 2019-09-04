@@ -12,31 +12,33 @@
 interface RedisInterface
 {
     /**
-     * Get redis instance
+     * Get redis instance.
      *
      * @return mixed
      */
     public function getRedisClient();
 
     /**
-     * Set the redis parameter
+     * Set the redis parameter.
      *
      * @param $options
+     *
      * @return mixed
      */
     public function setRedisOption($options);
 
     /**
-     * Get Key
+     * Get Key.
      *
      * @return mixed
      */
     public function getKey();
 
     /**
-     * Set Key
+     * Set Key.
      *
      * @param $result
+     *
      * @return mixed
      */
     public function setKey($result);

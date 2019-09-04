@@ -19,14 +19,6 @@ interface RedisInterface
     public function getRedisClient();
 
     /**
-     * Set the redis parameter
-     *
-     * @param $options
-     * @return mixed
-     */
-    public function setRedisOption($options);
-
-    /**
      * Get Key
      *
      * @return mixed
